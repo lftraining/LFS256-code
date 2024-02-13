@@ -1,0 +1,48 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pulsar
+  labels:
+    app: pulsar
+spec:
+  replicas: 1
+  template:
+    metadata:
+      name: pulsar
+      labels:
+        app: pulsar
+    spec:
+      containers:
+        - name: pulsar
+          image: apachepulsar/pulsar:2.4.1
+          command:
+            - bin/pulsar
+            - standalone
+          imagePullPolicy: IfNotPresent
+          volumeMounts:
+            - mountPath: /pulsar/data
+              name: datadir
+      restartPolicy: Always
+      volumes:
+        - name: datadir
+          emptyDir: {}
+  selector:
+    matchLabels:
+      app: pulsar
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: pulsar
+spec:
+  selector:
+    app: pulsar
+  ports:
+    - port: 8080
+      targetPort: 8080
+      name: http
+    - port: 6650
+      name: another
+      targetPort: 6650
+  type: LoadBalancer
+
