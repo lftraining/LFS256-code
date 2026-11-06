@@ -14,6 +14,6 @@ spec:
     spec:
       containers:
       - name: argocd-example-app
-        image: liquidreply/argocd-example-app:1
+        image: liquidreply/argocd-example-app:2
         ports:
         - containerPort: 3000 # Assuming your app runs on port 3000

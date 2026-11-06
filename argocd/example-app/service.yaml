@@ -8,5 +8,5 @@ spec:
     app: argocd-example-app
   ports:
     - port: 3000
-      targetPort: 3000
+      targetPort: 80
       nodePort: 31000 # Optional: Kubernetes will choose a port if this is omitted
